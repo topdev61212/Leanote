@@ -11,6 +11,7 @@
         android:layout_height="50dp"
         android:src="@drawable/ic_round_leanote"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:transitionName="@string/shareelement_logo"/>
 
 </RelativeLayout>
