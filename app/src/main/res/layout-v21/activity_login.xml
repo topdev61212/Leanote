@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.akioss.leanote.views.WalTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_larger"
+            android:layout_marginTop="@dimen/label_margin_top"
+            android:layout_marginBottom="@dimen/label_margin_bottom"
+            android:textSize="@dimen/font_larger"
+            android:textColor="@color/white"
+            android:layout_gravity="left"
+            android:text="@string/app_name"/>
+
+        <ImageView
+            android:id="@+id/logo_img"
+            android:layout_width="@dimen/logo_w"
+            android:layout_height="@dimen/logo_h"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/shareelement_logo"/>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputLayout_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:background="@color/white"
+            android:paddingTop="@dimen/margin_regular">
+
+            <EditText
+                android:id="@+id/username_edt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="@dimen/margin_large"
+                android:hint="@string/username"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@color/font_666"
+                android:text="lwliyi@163.com"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/pwd_edt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="@dimen/margin_large"
+                android:layout_marginRight="@dimen/margin_large"
+                android:hint="@string/pwd"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:text="qwer112358"
+                android:textColor="@color/font_666"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:id="@+id/signin_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sigin_height"
+            android:layout_margin="@dimen/margin_large"
+            android:background="@color/blue_medium">
+
+            <TextView
+                android:id="@+id/sigin_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/signin"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+            <ProgressBar
+                android:id="@+id/sigin_progressBar"
+                style="?android:attr/progressBarStyleSmallInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:progressTint="@color/white"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/lostpwd_txt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/txt_height"
+            android:gravity="center"
+            android:textSize="@dimen/font_regular"
+            android:textColor="@color/white"
+            android:text="@string/get_lost_pwd"/>
+
+        <TextView
+            android:id="@+id/register_txt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/txt_height"
+            android:layout_marginTop="@dimen/register_margin_top"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textSize="@dimen/font_regular"
+            android:textColor="@color/white"
+            android:text="@string/register"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name" translatable="false">Leanote</string>
+    <string name="app_name_higher" translatable="false">LEANOTE</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <string name="action_settings" translatable="false">Settings</string>
+
+    <!-- application -->
+    <string name="shareelement_logo" translatable="false">shareelement_logo</string>
+
+    <!-- login -->
+    <string name="username">Email</string>
+    <string name="pwd">PassWord</string>
+    <string name="signin">Sign in</string>
+    <string name="get_lost_pwd">Lost your password?</string>
+    <string name="register">Register an account</string>
+    <string name="email_erroe">Please input correct email!</string>
+    <string name="pwd_error">Please inpit correct password!</string>
+
+</resources>
