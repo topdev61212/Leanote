@@ -104,7 +104,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView, Vi
     public void moveToMainActivity() {
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
-        finish();
+        AppManager.removeAll();
     }
 
     @Override

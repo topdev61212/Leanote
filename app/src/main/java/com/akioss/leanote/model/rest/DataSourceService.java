@@ -6,6 +6,7 @@ import com.akioss.leanote.model.entities.BaseInfo;
 import com.akioss.leanote.model.entities.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 
@@ -30,6 +31,8 @@ public class DataSourceService implements DataSourceRestAPI {
 
     private static DataSourceService _INSTANCE = new DataSourceService();
 
+    private OkHttpClient client;
+
     public static DataSourceService getInstance() {
         return _INSTANCE;
     }
@@ -39,12 +42,19 @@ public class DataSourceService implements DataSourceRestAPI {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
 
+        client = new OkHttpClient();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.URL_BASE)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(client)
                 .build();
 
         dataSourceAPI = retrofit.create(DataSourceRestAPI.class);
+    }
+
+    public OkHttpClient getClient() {
+        return client;
     }
 
     @Override

@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.ImageView;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.common.Constants;
+import com.akioss.leanote.common.GlobalSharePres;
 import com.akioss.leanote.utils.AnimateUtil;
 
 import butterknife.Bind;
@@ -32,6 +35,8 @@ public class LauncherActivity extends BaseFragmentActivity {
     @Bind(R.id.launcher_img)
     ImageView launcherImg;
 
+    private GlobalSharePres sharePres;
+
     @Override
     public int bindLayout() {
         return R.layout.activity_launcher;
@@ -39,7 +44,7 @@ public class LauncherActivity extends BaseFragmentActivity {
 
     @Override
     public void initParams() {
-
+        sharePres = new GlobalSharePres(getContext(), Constants.PRES_ACCOUNT);
     }
 
     @Override
@@ -60,11 +65,7 @@ public class LauncherActivity extends BaseFragmentActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                Intent moveToLoginIntent = new Intent(getContext(), LoginActivity.class);
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getContext(), launcherImg, getResources().getString(R.string.shareelement_logo)
-                );
-                ActivityCompat.startActivity(getContext(), moveToLoginIntent, options.toBundle());
+                moveToNextActivity();
             }
 
             @Override
@@ -83,6 +84,20 @@ public class LauncherActivity extends BaseFragmentActivity {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.white));
+        }
+    }
+
+    private void moveToNextActivity() {
+        if ( TextUtils.isEmpty(sharePres.loadString("token"))) {
+            Intent moveToLoginIntent = new Intent(getContext(), LoginActivity.class);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    getContext(), launcherImg, getResources().getString(R.string.shareelement_logo)
+            );
+            ActivityCompat.startActivity(getContext(), moveToLoginIntent, options.toBundle());
+        } else {
+            Intent moveToMainActivity = new Intent(getContext(), MainActivity.class);
+            startActivity(moveToMainActivity);
+            finish();
         }
     }
 

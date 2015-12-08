@@ -14,7 +14,7 @@ package com.akioss.leanote.model.entities;
 @SuppressWarnings("unused")
 public class BaseInfo {
 
-    private boolean Ok;
+    private boolean Ok = true; //默认为true
     private String Msg;
 
     public boolean isOk() {

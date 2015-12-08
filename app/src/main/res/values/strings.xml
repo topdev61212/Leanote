@@ -5,7 +5,16 @@
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
+    <!-- navView string-->
+    <string name="nav_notes">Notes</string>
+    <string name="nav_post">Blogs</string>
+    <string name="nav_notebooks">NoteBooks</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_share">Share</string>
+
+    <!-- actionbar string-->
     <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_addnote" translatable="false">AddNote</string>
 
     <!-- application -->
     <string name="shareelement_logo" translatable="false">shareelement_logo</string>
@@ -18,5 +27,8 @@
     <string name="register">Register an account</string>
     <string name="email_erroe">Please input correct email!</string>
     <string name="pwd_error">Please inpit correct password!</string>
+
+    <!-- Main -->
+    <string name="net_error">bad net working!</string>
 
 </resources>

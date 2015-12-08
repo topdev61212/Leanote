@@ -16,8 +16,8 @@ public class DrawableUtils {
 	 * @param strokeColor  描边颜色
 	 * @param radius       圆角
 	 */
-	public static GradientDrawable createDrawable(int contentColor, int strokeColor, int radius) {
-		return createDrawable(contentColor, strokeColor, 1, radius);
+	public static GradientDrawable createRectDrawable(int contentColor, int strokeColor, int radius) {
+		return createRectDrawable(contentColor, strokeColor, 1, radius);
 	}
 
     /**
@@ -29,12 +29,19 @@ public class DrawableUtils {
      * @param strokeWidth  描边宽度
      * @return drawble
      */
-    public static GradientDrawable createDrawable(int contentColor, int strokeColor, int strokeWidth, int radius) {
+    public static GradientDrawable createRectDrawable(int contentColor, int strokeColor, int strokeWidth, int radius) {
         GradientDrawable drawable = new GradientDrawable(); // 生成Shape
         drawable.setGradientType(GradientDrawable.RECTANGLE); // 设置矩形
         drawable.setColor(contentColor);// 内容区域的颜色
         drawable.setStroke(strokeWidth, strokeColor); // 四周描边,描边后四角真正为圆角，不会出现黑色阴影。如果父窗体是可以滑动的，需要把父View设置setScrollCache(false)
         drawable.setCornerRadius(radius); // 设置四角都为圆角
+        return drawable;
+    }
+
+    public static GradientDrawable createLinearDrawable(int startColor, int centerColor, int endColor) {
+        GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+                new int[]{startColor, centerColor, endColor});
+        drawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
         return drawable;
     }
 
