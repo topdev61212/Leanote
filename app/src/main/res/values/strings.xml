@@ -31,4 +31,7 @@
     <!-- Main -->
     <string name="net_error">bad net working!</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

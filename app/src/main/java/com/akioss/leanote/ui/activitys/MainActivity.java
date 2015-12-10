@@ -1,8 +1,8 @@
 package com.akioss.leanote.ui.activitys;
 
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -10,11 +10,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.ui.fragments.NoteBooksFragment;
+import com.akioss.leanote.ui.fragments.NotesFragment;
+import com.akioss.leanote.ui.fragments.OnFragmentInteractionListener;
+import com.akioss.leanote.ui.fragments.PostFragment;
 import com.akioss.leanote.ui.mvpview.MainView;
 import com.akioss.leanote.ui.presenters.impl.MainPresenter;
 import com.akioss.leanote.utils.bitmaptransform.GlideCircleTransform;
@@ -24,12 +29,13 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseFragmentActivity
-        implements MainView, NavigationView.OnNavigationItemSelectedListener {
+        implements MainView, OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.addnote_fab)
-    FloatingActionButton fab;
+    @Bind(R.id.menu_fab)
+    FloatingActionButton menu_fab;
     @Bind(R.id.nav_view)
     NavigationView navView;
     @Bind(R.id.drawer_layout)
@@ -42,9 +48,14 @@ public class MainActivity extends BaseFragmentActivity
     TextView usernameTxt;
     @Bind(R.id.email_txt)
     TextView emailTxt;
-
+    @Bind(R.id.content_layout)
+    FrameLayout contentLayout;
 
     private MainPresenter mainPresenter;
+
+    private NotesFragment notesFragment;
+    private PostFragment postFragment;
+    private NoteBooksFragment noteBooksFragment;
 
     @Override
     public int bindLayout() {
@@ -54,17 +65,20 @@ public class MainActivity extends BaseFragmentActivity
     @Override
     public void initParams() {
         mainPresenter = new MainPresenter(this);
+        setFragmentContainerId(R.id.content_layout);
+        notesFragment = NotesFragment.newInstance();
+        postFragment = PostFragment.newInstance();
+        noteBooksFragment = NoteBooksFragment.newInstance();
     }
 
     @Override
     public void initView() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        fab.setOnClickListener(new View.OnClickListener() {
+        menu_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                drawer.openDrawer(GravityCompat.START);
             }
         });
 
@@ -78,7 +92,11 @@ public class MainActivity extends BaseFragmentActivity
 
     @Override
     public void doBusiness() {
+        //get userinfo
         mainPresenter.getUserInfo();
+        //init notes fragment
+        showFragment(notesFragment);
+        navView.setCheckedItem(R.id.nav_notes);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -87,10 +105,13 @@ public class MainActivity extends BaseFragmentActivity
 
         switch (item.getItemId()) {
             case R.id.nav_notes:
+                showFragment(notesFragment);
                 break;
             case R.id.nav_post:
+                showFragment(postFragment);
                 break;
             case R.id.nav_notebooks:
+                showFragment(noteBooksFragment);
                 break;
             case R.id.nav_settings:
                 break;
@@ -108,7 +129,7 @@ public class MainActivity extends BaseFragmentActivity
 
     @Override
     public void setUpHeader(String logoUrl, String userName, String email) {
-        Glide.with(getContext()).load(logoUrl)
+        Glide.with(this).load(logoUrl)
                 .crossFade()
                 .transform(new GlideCircleTransform(this))
                 .into(logoImg);
@@ -128,12 +149,12 @@ public class MainActivity extends BaseFragmentActivity
 
     @Override
     public void showSnackMsg(String msg) {
-        Snackbar.make(fab, msg, Snackbar.LENGTH_SHORT);
+//        Snackbar.make(fab, msg, Snackbar.LENGTH_SHORT);
     }
 
     @Override
     public void showSnackMsg(int resId) {
-        Snackbar.make(fab, getResources().getString(resId), Snackbar.LENGTH_SHORT);
+//        Snackbar.make(fab, getResources().getString(resId), Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -163,4 +184,8 @@ public class MainActivity extends BaseFragmentActivity
         }
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

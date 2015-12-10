@@ -1,10 +1,10 @@
 package com.akioss.leanote.ui.activitys;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.akioss.leanote.common.AppManager;
@@ -52,7 +52,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity implements 
         mContext = new WeakReference<Activity>(this);
         AppManager.pushTask(mContext);
         //获取FragmentManager
-        mFragmentManager = getFragmentManager();
+        mFragmentManager = getSupportFragmentManager();
 
         if (bindLayout() <= 0){
             throw new RuntimeException("don't exec bindLayout() method!");

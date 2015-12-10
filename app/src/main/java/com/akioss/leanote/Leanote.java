@@ -13,6 +13,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import java.io.InputStream;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
+
 /*****************************************************************************************************************
  * Author: liyi
  * Create Date: 15/11/24.
@@ -31,6 +33,8 @@ public class Leanote extends Application {
     public void onCreate() {
         super.onCreate();
 
+        /* Install CustomActivityOnCrash */
+        CustomActivityOnCrash.install(this);
         /* glide初始化 */
         Glide.get(getApplicationContext()).register(GlideUrl.class, InputStream.class,
                 new OkHttpUrlLoader.Factory(DataSourceService.getInstance().getClient()));
@@ -40,6 +44,7 @@ public class Leanote extends Application {
         Logger.init(Constants.APP_NAME)
                 .logLevel(LogLevel.FULL)
                 .methodCount(3);
+
     }
 
 }
