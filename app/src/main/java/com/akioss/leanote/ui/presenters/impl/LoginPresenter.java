@@ -1,12 +1,11 @@
 package com.akioss.leanote.ui.presenters.impl;
 
-import android.content.Context;
-
 import com.akioss.leanote.common.Constants;
 import com.akioss.leanote.common.GlobalSharePres;
 import com.akioss.leanote.model.entities.AccountInfo;
 import com.akioss.leanote.model.rest.DataSourceService;
 import com.akioss.leanote.ui.mvpview.LoginView;
+import com.akioss.leanote.ui.presenters.BasePresenter;
 import com.akioss.leanote.ui.presenters.interfaces.ILoginPresenter;
 
 import retrofit.Callback;
@@ -24,14 +23,14 @@ import retrofit.Retrofit;
  * Modified Date:
  * Why & What is modified :
  *****************************************************************************************************************/
-public class LoginPresenter implements ILoginPresenter {
+public class LoginPresenter extends BasePresenter implements ILoginPresenter {
 
     private final LoginView loginView;
     private GlobalSharePres sharePres;
 
     public LoginPresenter(LoginView loginView) {
         this.loginView = loginView;
-        sharePres = new GlobalSharePres((Context) loginView, Constants.PRES_ACCOUNT);
+        sharePres = new GlobalSharePres(mContext, Constants.PRES_ACCOUNT);
     }
 
     @Override

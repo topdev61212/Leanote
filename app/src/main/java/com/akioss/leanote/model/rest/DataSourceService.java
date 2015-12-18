@@ -3,12 +3,14 @@ package com.akioss.leanote.model.rest;
 import com.akioss.leanote.common.Constants;
 import com.akioss.leanote.model.entities.AccountInfo;
 import com.akioss.leanote.model.entities.BaseInfo;
+import com.akioss.leanote.model.entities.NoteItem;
 import com.akioss.leanote.model.entities.UserInfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
@@ -39,7 +41,7 @@ public class DataSourceService implements DataSourceRestAPI {
 
     private DataSourceService() {
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .setDateFormat("yyyy-MM-ddHH:mm:ss")
                 .create();
 
         client = new OkHttpClient();
@@ -90,5 +92,10 @@ public class DataSourceService implements DataSourceRestAPI {
     @Override
     public Call<BaseInfo> updateLogo(File file) {
         return null;
+    }
+
+    @Override
+    public Call<List<NoteItem>> getNotes(int afterUsn, int maxEntry, String token) {
+        return dataSourceAPI.getNotes(afterUsn, maxEntry, token);
     }
 }

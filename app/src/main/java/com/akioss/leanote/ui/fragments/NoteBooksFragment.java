@@ -1,19 +1,12 @@
 package com.akioss.leanote.ui.fragments;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.akioss.leanote.R;
+import com.akioss.leanote.ui.presenters.impl.NoteBooksPresenter;
+
+import butterknife.ButterKnife;
 
 
-public class NoteBooksFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
+public class NoteBooksFragment extends BaseFragment<NoteBooksPresenter> {
 
     public static NoteBooksFragment newInstance() {
         NoteBooksFragment fragment = new NoteBooksFragment();
@@ -21,38 +14,23 @@ public class NoteBooksFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int bindLayout() {
+        return R.layout.fragment_note_books;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_note_books, container, false);
-    }
+    public void initParams() {
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void initView() {
+        ButterKnife.bind(this, rootView);
+
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public void doBusiness() {
+
     }
 }

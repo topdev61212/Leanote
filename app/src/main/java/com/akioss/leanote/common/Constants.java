@@ -15,7 +15,11 @@ public class Constants {
 
     public static final String APP_NAME = "Leanote";
 
-    public static final String URL_BASE = "http://www.leanote.com/api/";
+    public static final String IP_ADRESS = "www.leanote.com";
+
+    public static final String URL_BASE = "http://" + IP_ADRESS + "/api/";
+
+    public static final String FILE_BASE = "http://" + IP_ADRESS + "/api/file/getImage?fileId=";
 
     /* bugly appId */
     public static final String BuglyAppId = "900013085";

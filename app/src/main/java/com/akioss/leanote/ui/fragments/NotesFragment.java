@@ -1,19 +1,37 @@
 package com.akioss.leanote.ui.fragments;
 
 import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.model.entities.NoteItem;
+import com.akioss.leanote.ui.adapters.NotesAdapter;
+import com.akioss.leanote.ui.mvpview.NotesView;
+import com.akioss.leanote.ui.presenters.impl.NotesPresenter;
+import com.akioss.leanote.views.refreshview.MaterialRefreshLayout;
+import com.akioss.leanote.views.refreshview.MaterialRefreshListener;
 
-public class NotesFragment extends Fragment {
+import java.util.List;
 
-    private OnFragmentInteractionListener mListener;
+import butterknife.Bind;
 
+public class NotesFragment extends BaseFragment<NotesPresenter> implements NotesView<NoteItem> {
+
+    @Bind(R.id.refresh_layout)
+    MaterialRefreshLayout refreshLayout;
+    @Bind(R.id.note_rcview)
+    RecyclerView noteRcview;
+    @Bind(R.id.notes_pb)
+    ProgressBar notesPb;
+    @Bind(R.id.edit_fab)
+    FloatingActionButton editFab;
+
+    private NotesAdapter adapter;
 
     public static NotesFragment newInstance() {
         NotesFragment fragment = new NotesFragment();
@@ -21,39 +39,90 @@ public class NotesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int bindLayout() {
+        return R.layout.fragment_notes;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false);
+    public void initParams() {
+        setPresenter(new NotesPresenter(this));
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void initView() {
+        noteRcview.setLayoutManager(new LinearLayoutManager(getContext()));
+        noteRcview.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.alpha_in));
+        refreshLayout.setMaterialRefreshListener(refrshListener);
+    }
+
+    @Override
+    public void doBusiness() {
+        presenter.getNotes();
+    }
+
+    @Override
+    public Context getContext() {
+        return mContxt;
+    }
+
+    @Override
+    public void setUpAdapter(List<NoteItem> datas) {
+        if (adapter == null) {
+            adapter = new NotesAdapter(datas, getContext());
         }
+        noteRcview.setAdapter(adapter);
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+    public void appendDataToAdapter(List<NoteItem> datas) {
+
+    }
+
+    @Override
+    public void dragCompleate() {
+
+    }
+
+    @Override
+    public void pullCompleate() {
+
+    }
+
+    @Override
+    public void showProgress() {
+        notesPb.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        notesPb.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showFab() {
+        editFab.show();
+    }
+
+    @Override
+    public void hideFab() {
+        editFab.hide();
+    }
+
+    private MaterialRefreshListener refrshListener = new MaterialRefreshListener() {
+        @Override
+        public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+            presenter.getNotes();
         }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+        @Override
+        public void onfinish() {
+            super.onfinish();
+        }
+
+        @Override
+        public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+            super.onRefreshLoadMore(materialRefreshLayout);
+        }
+    };
 
 }

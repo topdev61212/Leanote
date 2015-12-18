@@ -8,6 +8,7 @@ import com.akioss.leanote.common.GlobalSharePres;
 import com.akioss.leanote.model.entities.UserInfo;
 import com.akioss.leanote.model.rest.DataSourceService;
 import com.akioss.leanote.ui.mvpview.MainView;
+import com.akioss.leanote.ui.presenters.BasePresenter;
 import com.akioss.leanote.ui.presenters.interfaces.IMainPresenter;
 
 import retrofit.Callback;
@@ -25,7 +26,7 @@ import retrofit.Retrofit;
  * Modified Date:
  * Why & What is modified :
  *****************************************************************************************************************/
-public class MainPresenter implements IMainPresenter {
+public class MainPresenter extends BasePresenter implements IMainPresenter {
 
     private final MainView mainView;
     private GlobalSharePres sharePres;

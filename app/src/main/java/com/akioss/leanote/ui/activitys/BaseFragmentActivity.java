@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.akioss.leanote.common.AppManager;
+import com.akioss.leanote.ui.presenters.BasePresenter;
 
 import java.lang.ref.WeakReference;
 
@@ -23,7 +24,8 @@ import java.lang.ref.WeakReference;
  * Why & What is modified :
  *****************************************************************************************************************/
 @SuppressWarnings("unused")
-public abstract class BaseFragmentActivity extends AppCompatActivity implements IBaseView {
+public abstract class BaseFragmentActivity<P extends BasePresenter> extends AppCompatActivity
+        implements IBaseView {
 
     protected static String TAG = "";
 
@@ -44,6 +46,11 @@ public abstract class BaseFragmentActivity extends AppCompatActivity implements 
      */
     public Fragment mCurrentFragment;
 
+    /**
+     * 当前Activity presenter
+     */
+    protected P presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +62,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity implements 
         mFragmentManager = getSupportFragmentManager();
 
         if (bindLayout() <= 0){
-            throw new RuntimeException("don't exec bindLayout() method!");
+            throw new RuntimeException("Do not exec bindLayout method!");
         } else {
             setContentView(bindLayout());
         }
@@ -65,12 +72,32 @@ public abstract class BaseFragmentActivity extends AppCompatActivity implements 
         doBusiness();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (presenter != null) {
+            presenter.attach(getContext());
+        }
+    }
+
     /**
      * Don't delete this method
      */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (presenter != null) {
+            presenter.detach();
+        }
+    }
+
+    protected void setPresenter(P presenter){
+        this.presenter = presenter;
     }
 
     /**

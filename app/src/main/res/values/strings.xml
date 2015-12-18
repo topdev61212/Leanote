@@ -30,8 +30,14 @@
 
     <!-- Main -->
     <string name="net_error">bad net working!</string>
+    <string name="other">other</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <integer-array name="material_colors">
+        <item>@color/material_red</item>
+        <item>@color/material_green</item>
+        <item>@color/material_blue</item>
+        <item>@color/material_yellow</item>
+    </integer-array>
 
 </resources>

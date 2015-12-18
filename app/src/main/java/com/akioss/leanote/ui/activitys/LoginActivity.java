@@ -34,7 +34,8 @@ import butterknife.OnClick;
  * Modified Date:
  * Why & What is modified :
  *****************************************************************************************************************/
-public class LoginActivity extends BaseFragmentActivity implements LoginView, View.OnClickListener {
+public class LoginActivity extends BaseFragmentActivity<LoginPresenter>
+        implements LoginView, View.OnClickListener {
 
     @Bind(R.id.username_edt)
     EditText usernameEdt;
@@ -53,7 +54,6 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView, Vi
     @Bind(R.id.register_txt)
     TextView registerTxt;
 
-    LoginPresenter presenter;
 
     @Override
     public int bindLayout() {
@@ -62,7 +62,7 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView, Vi
 
     @Override
     public void initParams() {
-        presenter = new LoginPresenter(this);
+        setPresenter(new LoginPresenter(this));
     }
 
     @Override
@@ -72,7 +72,6 @@ public class LoginActivity extends BaseFragmentActivity implements LoginView, Vi
         /* 整体渐入动画 */
         View decView = getWindow().getDecorView();
         AnimateUtil.alphaIn(decView);
-
     }
 
     private void initStatusBar() {

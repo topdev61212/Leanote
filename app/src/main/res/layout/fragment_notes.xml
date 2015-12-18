@@ -1,10 +1,53 @@
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.akioss.leanote.ui.fragments.NotesFragment">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <com.akioss.leanote.views.refreshview.MaterialRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:progress_show_circle_backgroud="false"
+            app:overlay="false"
+            app:isLoadMore="true"
+            app:wave_show="true"
+            app:wave_color="@color/grey_light"
+            app:progress_show_arrow="false"
+            app:progress_colors="@array/material_colors"
+            app:wave_height_type="normal">
 
-</FrameLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/note_rcview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </com.akioss.leanote.views.refreshview.MaterialRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/notes_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:visibility="gone"
+        android:src="@drawable/ic_edit"/>
+
+</android.support.design.widget.CoordinatorLayout>

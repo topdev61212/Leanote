@@ -2,9 +2,11 @@ package com.akioss.leanote.model.rest;
 
 import com.akioss.leanote.model.entities.AccountInfo;
 import com.akioss.leanote.model.entities.BaseInfo;
+import com.akioss.leanote.model.entities.NoteItem;
 import com.akioss.leanote.model.entities.UserInfo;
 
 import java.io.File;
+import java.util.List;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -67,5 +69,12 @@ public interface DataSourceRestAPI {
     @POST("user/updateLogo")
     Call<BaseInfo> updateLogo(
             @Part("file") File file
+    );
+
+    @GET("note/getSyncNotes")
+    Call<List<NoteItem>> getNotes(
+            @Query("afterUsn") int afterUsn,
+            @Query("maxEntry") int maxEntry,
+            @Query("token") String token
     );
 }

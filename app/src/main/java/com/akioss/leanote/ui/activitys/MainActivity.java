@@ -1,7 +1,6 @@
 package com.akioss.leanote.ui.activitys;
 
 import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -28,14 +27,12 @@ import com.bumptech.glide.Glide;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseFragmentActivity
+public class MainActivity extends BaseFragmentActivity<MainPresenter>
         implements MainView, OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.menu_fab)
-    FloatingActionButton menu_fab;
     @Bind(R.id.nav_view)
     NavigationView navView;
     @Bind(R.id.drawer_layout)
@@ -51,8 +48,6 @@ public class MainActivity extends BaseFragmentActivity
     @Bind(R.id.content_layout)
     FrameLayout contentLayout;
 
-    private MainPresenter mainPresenter;
-
     private NotesFragment notesFragment;
     private PostFragment postFragment;
     private NoteBooksFragment noteBooksFragment;
@@ -64,7 +59,7 @@ public class MainActivity extends BaseFragmentActivity
 
     @Override
     public void initParams() {
-        mainPresenter = new MainPresenter(this);
+        setPresenter(new MainPresenter(this));
         setFragmentContainerId(R.id.content_layout);
         notesFragment = NotesFragment.newInstance();
         postFragment = PostFragment.newInstance();
@@ -75,12 +70,6 @@ public class MainActivity extends BaseFragmentActivity
     public void initView() {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        menu_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -93,7 +82,7 @@ public class MainActivity extends BaseFragmentActivity
     @Override
     public void doBusiness() {
         //get userinfo
-        mainPresenter.getUserInfo();
+        presenter.getUserInfo();
         //init notes fragment
         showFragment(notesFragment);
         navView.setCheckedItem(R.id.nav_notes);

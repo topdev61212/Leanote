@@ -69,4 +69,9 @@
     <color name="font_666">#666666</color>
     <color name="font_999">#999999</color>
 
+    <color name="material_red">#ffF44336</color>
+    <color name="material_green">#ff4CAF50</color>
+    <color name="material_blue">#ff03A9F4</color>
+    <color name="material_yellow">#bfb02a</color>
+
 </resources>
