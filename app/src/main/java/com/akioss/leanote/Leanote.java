@@ -2,16 +2,13 @@ package com.akioss.leanote;
 
 import android.app.Application;
 
+import com.akioss.leanote.common.AppConfig;
 import com.akioss.leanote.common.Constants;
-import com.akioss.leanote.model.rest.DataSourceService;
 import com.akioss.leanote.utils.logger.LogLevel;
 import com.akioss.leanote.utils.logger.Logger;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.integration.okhttp.OkHttpUrlLoader;
-import com.bumptech.glide.load.model.GlideUrl;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
-
-import java.io.InputStream;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 
@@ -29,22 +26,31 @@ import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 @SuppressWarnings("unused")
 public class Leanote extends Application {
 
+    private RefWatcher refWatcher;
+    private static Leanote application;
+
+    public static Leanote get() {
+        return application;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+        application = (Leanote) getApplicationContext();
         /* Install CustomActivityOnCrash */
         CustomActivityOnCrash.install(this);
-        /* glide初始化 */
-        Glide.get(getApplicationContext()).register(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(DataSourceService.getInstance().getClient()));
         /* bugly初始化 */
         CrashReport.initCrashReport(this, Constants.BuglyAppId, true);
         /* logger初始化 */
-        Logger.init(Constants.APP_NAME)
+        Logger.init(AppConfig.APP_NAME)
                 .logLevel(LogLevel.FULL)
                 .methodCount(3);
 
+        refWatcher = LeakCanary.install(this);
     }
 
+    public RefWatcher getRefWatcher() {
+        return refWatcher;
+    }
 }

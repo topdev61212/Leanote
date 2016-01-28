@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0000ff"
-    tools:context="com.akioss.leanote.ui.fragments.PostFragment">
+    tools:context="com.akioss.leanote.core.fragments.PostFragment">
 
 
 </FrameLayout>
