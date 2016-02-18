@@ -20,6 +20,9 @@
     <dimen name="margin_large">12dp</dimen>
     <dimen name="margin_larger">16dp</dimen>
 
+    <!-- radius -->
+    <dimen name="radius_regular">5dp</dimen>
+
     <!--login-->
     <dimen name="logo_w">68dp</dimen>
     <dimen name="logo_h">68dp</dimen>

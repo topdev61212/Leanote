@@ -10,8 +10,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
-
 /*****************************************************************************************************************
  * Author: liyi
  * Create Date: 15/11/24.
@@ -39,7 +37,7 @@ public class Leanote extends Application {
 
         application = (Leanote) getApplicationContext();
         /* Install CustomActivityOnCrash */
-        CustomActivityOnCrash.install(this);
+//        CustomActivityOnCrash.install(this);
         /* bugly初始化 */
         CrashReport.initCrashReport(this, Constants.BuglyAppId, true);
         /* logger初始化 */
