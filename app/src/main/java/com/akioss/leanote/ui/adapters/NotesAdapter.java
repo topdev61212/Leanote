@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akioss.leanote.R;
-import com.akioss.leanote.model.entities.NoteItemEntity;
+import com.akioss.leanote.model.entity.NoteItemEntity;
 
 import java.util.List;
 
@@ -42,10 +42,10 @@ public class NotesAdapter extends BaseRecyclerAdapter<NoteItemEntity, NotesAdapt
 
     @Override
     protected void bindItemData(NotesViewHolder viewHolder, NoteItemEntity data, int position) {
-        viewHolder.titleTxt.setText(data.Title);
-        viewHolder.timeTxt.setText(data.CreatedTime);
-        viewHolder.tagTxt.setText(data.Tags != null && data.Tags.size() > 0 ?
-                data.Tags.get(0) : "other");
+        viewHolder.titleTxt.setText(data.getTitle());
+        viewHolder.timeTxt.setText(data.getCreatedTime());
+        viewHolder.tagTxt.setText(data.getTags() != null && data.getTags().size() > 0 ?
+                data.getTags().get(0) : "other");
     }
 
     static class NotesViewHolder extends RecyclerView.ViewHolder {

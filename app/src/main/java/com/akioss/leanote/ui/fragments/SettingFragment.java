@@ -1,7 +1,7 @@
 package com.akioss.leanote.ui.fragments;
 
 import com.akioss.leanote.R;
-import com.akioss.leanote.ui.presenters.impl.SettingPresenter;
+import com.akioss.leanote.presenters.impl.SettingPresenter;
 
 /*****************************************************************************************************************
  * Author: liyi

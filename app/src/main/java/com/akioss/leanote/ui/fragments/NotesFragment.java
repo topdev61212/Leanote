@@ -1,18 +1,21 @@
 package com.akioss.leanote.ui.fragments;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.model.entity.NoteItemEntity;
+import com.akioss.leanote.presenters.impl.NotesPresenter;
+import com.akioss.leanote.ui.activitys.NoteContentActivity;
 import com.akioss.leanote.ui.adapters.NotesAdapter;
 import com.akioss.leanote.ui.mvpview.NotesView;
-import com.akioss.leanote.ui.presenters.impl.NotesPresenter;
-import com.akioss.leanote.model.entities.NoteItemEntity;
 import com.akioss.leanote.utils.logger.Logger;
 
 import java.util.List;
@@ -32,6 +35,7 @@ public class NotesFragment extends BaseFragment<NotesPresenter> implements
     FloatingActionButton editFab;
 
     private NotesAdapter adapter;
+    private List<NoteItemEntity> dataBuffers;
 
     public static NotesFragment newInstance() {
         NotesFragment fragment = new NotesFragment();
@@ -62,11 +66,22 @@ public class NotesFragment extends BaseFragment<NotesPresenter> implements
     @Override
     public void setUpAdapter(List<NoteItemEntity> datas) {
         Logger.d(datas.toString());
+        dataBuffers = datas;
         if (adapter == null) {
             adapter = new NotesAdapter(datas, getContext());
             noteRcview.setAdapter(adapter);
+            adapter.setOnItemClickListener(noteItemClickListener);
         }
     }
+
+    private AdapterView.OnItemClickListener noteItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(getContext(), NoteContentActivity.class);
+            intent.putExtra("noteId", dataBuffers.get(position).getNoteId());
+            getContext().startActivity(intent);
+        }
+    };
 
     @Override
     public void appendDataToAdapter(List<NoteItemEntity> datas) {

@@ -9,7 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.akioss.leanote.Leanote;
-import com.akioss.leanote.ui.presenters.BasePresenter;
+import com.akioss.leanote.common.AppManager;
+import com.akioss.leanote.presenters.BasePresenter;
 
 import java.lang.ref.WeakReference;
 
@@ -30,7 +31,7 @@ public abstract class BaseFragmentActivity<P extends BasePresenter> extends AppC
     /**
      * activity弱引用 防止activity内存泄露
      */
-    private WeakReference< Activity> mContext;
+    private WeakReference< Activity> weakActivity;
     /**
      * fragment管理器
      */
@@ -53,7 +54,8 @@ public abstract class BaseFragmentActivity<P extends BasePresenter> extends AppC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Activity弱引用
-        mContext = new WeakReference<Activity>(this);
+        weakActivity = new WeakReference<Activity>(this);
+        AppManager.add(weakActivity);
         //获取FragmentManager
         mFragmentManager = getSupportFragmentManager();
 
@@ -100,6 +102,9 @@ public abstract class BaseFragmentActivity<P extends BasePresenter> extends AppC
         if (presenter != null) {
             presenter.detach();
         }
+        if (weakActivity != null) {
+            AppManager.remove(weakActivity);
+        }
         Leanote.get().getRefWatcher().watch(this);
     }
 
@@ -111,8 +116,8 @@ public abstract class BaseFragmentActivity<P extends BasePresenter> extends AppC
      * get context
      */
     protected Activity getContext() {
-        if (mContext != null) {
-            return mContext.get();
+        if (weakActivity != null) {
+            return weakActivity.get();
         } else {
             return null;
         }

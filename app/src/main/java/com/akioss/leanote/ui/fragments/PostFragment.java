@@ -1,7 +1,7 @@
 package com.akioss.leanote.ui.fragments;
 
 import com.akioss.leanote.R;
-import com.akioss.leanote.ui.presenters.impl.PostPresenter;
+import com.akioss.leanote.presenters.impl.PostPresenter;
 
 import butterknife.ButterKnife;
 

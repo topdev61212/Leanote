@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.presenters.impl.LoginPresenter;
 import com.akioss.leanote.ui.mvpview.LoginView;
-import com.akioss.leanote.ui.presenters.impl.LoginPresenter;
 import com.akioss.leanote.utils.AnimateUtil;
 
 import butterknife.Bind;

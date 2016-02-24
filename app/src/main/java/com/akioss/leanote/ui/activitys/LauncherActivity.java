@@ -3,18 +3,17 @@ package com.akioss.leanote.ui.activitys;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Window;
 import android.widget.ImageView;
 
 import com.akioss.leanote.R;
 import com.akioss.leanote.common.Constants;
 import com.akioss.leanote.utils.AnimateUtil;
 import com.akioss.leanote.utils.GlobalSharePres;
+import com.akioss.leanote.utils.StatusBarUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -81,10 +80,7 @@ public class LauncherActivity extends BaseFragmentActivity {
     }
 
     private void initStatusBar() {
-        Window window = getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.white));
-        }
+        StatusBarUtil.setColor(getContext(), getResources().getColor(R.color.white));
     }
 
     private void moveToNextActivity() {
@@ -94,6 +90,7 @@ public class LauncherActivity extends BaseFragmentActivity {
                     getContext(), launcherImg, getResources().getString(R.string.shareelement_logo)
             );
             ActivityCompat.startActivity(getContext(), moveToLoginIntent, options.toBundle());
+            finish();
         } else {
             Intent moveToMainActivity = new Intent(getContext(), MainActivity.class);
             startActivity(moveToMainActivity);

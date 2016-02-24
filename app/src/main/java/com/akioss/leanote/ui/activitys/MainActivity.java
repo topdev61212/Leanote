@@ -14,12 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akioss.leanote.R;
+import com.akioss.leanote.common.AppManager;
+import com.akioss.leanote.presenters.impl.MainPresenter;
 import com.akioss.leanote.ui.fragments.NoteBooksFragment;
 import com.akioss.leanote.ui.fragments.NotesFragment;
 import com.akioss.leanote.ui.fragments.PostFragment;
 import com.akioss.leanote.ui.fragments.SettingFragment;
 import com.akioss.leanote.ui.mvpview.MainView;
-import com.akioss.leanote.ui.presenters.impl.MainPresenter;
 import com.akioss.leanote.utils.transformation.CircleImgTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -150,6 +151,7 @@ public class MainActivity extends BaseFragmentActivity<MainPresenter>
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            AppManager.exitClient(getContext());
             super.onBackPressed();
         }
     }

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.akioss.leanote.Leanote;
-import com.akioss.leanote.ui.presenters.BasePresenter;
+import com.akioss.leanote.presenters.BasePresenter;
 
 import butterknife.ButterKnife;
 
